@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services - Our Services</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* Navigation links */
+.links {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+  z-index: 10;
+}
+
+.links a {
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+
+.underline-line {
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  height: 2px;
+  background-color: grey;
+}
+
+.main-area {
+  margin-top: 150px;
+  padding: 20px;
+}
+
+/* Maintenance overlay with less strong blur */
+#maintenanceOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px); /* Reduced from 15px to 8px for a less strong blur */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Popup box */
+#maintenanceBox {
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.unit {
+  font-size: 0.9em;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="links">
+  <a>Home</a>
+  <a>Services</a>
+  <a>About</a>
+</div>
+
+<div class="underline-line"></div>
+
+<div class="main-area">
+  <!-- Your website content -->
+</div>
+
+<!-- Maintenance Overlay -->
+<div id="maintenanceOverlay">
+  <div id="maintenanceBox">
+
+    <div class="title">Maintenance</div>
+    <div class="label">Website opens in:</div>
+
+    <div class="countdown">
+
+      <div class="time-box">
+        <div id="days" class="number">0</div>
+        <div class="unit">Days</div>
+      </div>
+
+      <div class="time-box">
+        <div id="hours" class="number">0</div>
+        <div class="unit">Hours</div>
+      </div>
+
+      <div class="time-box">
+        <div id="minutes" class="number">0</div>
+        <div class="unit">Minutes</div>
+      </div>
+
+      <div class="time-box">
+        <div id="seconds" class="number">0</div>
+        <div class="unit">Seconds</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* Target: 13 March 2026 - 23:00 UK time */
+const targetDate = new Date("March 13, 2026 23:00:00 GMT");
+
+const days = document.getElementById("days");
+const hours = document.getElementById("hours");
+const minutes = document.getElementById("minutes");
+const seconds = document.getElementById("seconds");
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const target = targetDate.getTime();
+  const difference = target - now;
+
+  if (difference <= 0) {
+    document.getElementById("maintenanceOverlay").style.display = "none";
+    return;
+  }
+
+  const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const h = Math.floor((difference / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((difference / (1000 * 60)) % 60);
+  const s = Math.floor((difference / 1000) % 60);
+
+  days.innerText = d;
+  hours.innerText = h;
+  minutes.innerText = m;
+  seconds.innerText = s;
+}
+
+/* Update every second */
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
