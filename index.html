@@ -44,7 +44,7 @@ body {
   padding: 20px;
 }
 
-/* Maintenance overlay with less strong blur */
+/* Maintenance overlay with very light blur */
 #maintenanceOverlay {
   position: fixed;
   top: 0;
@@ -52,7 +52,7 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(8px); /* Reduced from 15px to 8px for a less strong blur */
+  backdrop-filter: blur(4px); /* Light blur */
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -154,8 +154,28 @@ body {
 </div>
 
 <script>
+/* Block right-click and certain key shortcuts */
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+document.addEventListener('keydown', function(e) {
+  // F12
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
+  // Ctrl+Shift+I
+  if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+    e.preventDefault();
+  }
+  // Ctrl+U (view source)
+  if (e.ctrlKey && e.key === 'u') {
+    e.preventDefault();
+  }
+});
+
+// Existing countdown script
 /* Target: 13 March 2026 - 23:00 UK time */
-const targetDate = new Date("March 13, 2026 23:00:00 GMT");
+const targetDate = new Date("March 14, 2026 14:30:00 GMT");
 
 const days = document.getElementById("days");
 const hours = document.getElementById("hours");
